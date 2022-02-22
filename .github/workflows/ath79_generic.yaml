@@ -121,7 +121,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ath79-images
-          path: ath79-images.tar
+          path: ath79x-images.tar
   release:
     name: Upload artifacts as release
     needs: build
@@ -133,7 +133,7 @@ jobs:
         with:
           name: ath79-images
       - name: Extract the image artifacts
-        run: tar xf ath79-images.tar
+        run: tar xf ath79x-images.tar
       - name: Extract version information from version.buildinfo
         run: >-
           echo "BUILDINFO=$(cat bin/targets/ath79/generic/version.buildinfo)"
