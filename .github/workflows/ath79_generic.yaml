@@ -1,9 +1,10 @@
-name: ipq807x Build remote repo only if new commits were pushed
+name: ath79 Build remote repo only if new commits were pushed
 on:
   workflow_dispatch:
   push:
   schedule:
-    - cron: '0 7 * * *'
+    #- cron: '0 7 * * *'
+    - cron:  '*/30 18 1 * *'
 jobs:
   check:
     name: Check remote repo for new commits
@@ -13,8 +14,8 @@ jobs:
         run: |
           curl -sL "https://api.github.com/repos/$REMOTE_REPOSITORY/commits?sha=$REMOTE_BRANCH&per_page=1" | jq -r '[.[]][0]' > commit.json
         env:
-          REMOTE_REPOSITORY: robimarko/openwrt
-          REMOTE_BRANCH: ipq807x-5.15
+          REMOTE_REPOSITORY: openwrt/openwrt
+          REMOTE_BRANCH: master
       - name: Calculate hours since last commit
         id: calc
         run: |
@@ -40,28 +41,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: robimarko/openwrt
-          ref: ipq807x-5.15
+          repository: openwrt/openwrt
+          ref: master
       - name: Update and install feeds
         run: |
           ./scripts/feeds update -a
           ./scripts/feeds install -a
-      - name: Generate config for IPQ807x Generic
+      - name: Generate config for ath79 Generic
         run: |
-          echo "CONFIG_TARGET_ipq807x=y" > .config
-          echo "CONFIG_TARGET_ipq807x_generic=y" >> .config
-          echo "CONFIG_TARGET_ipq807x_generic_DEVICE_xiaomi_ax3600=y" >> .config
-          echo 'CONFIG_TARGET_DEVICE_PACKAGES_ipq807x_generic_DEVICE_xiaomi_ax3600=""' >> .config
-          echo 'CONFIG_TARGET_PROFILE="DEVICE_xiaomi_ax3600"' >> .config
+          echo "CONFIG_TARGET_ath79=y" > .config
+          echo "CONFIG_TARGET_ath79_generic=y" > .config
           #echo "CONFIG_TARGET_MULTI_PROFILE=y\n" >> .config
           #echo "CONFIG_TARGET_ALL_PROFILES=y\n" >> .config
+          echo "CONFIG_TARGET_DEVICE_ath79_generic_DEVICE_netgear_ex7300=y" >> .config
+          echo 'CONFIG_TARGET_DEVICE_PACKAGES_ath79_generic_DEVICE_netgear_ex7300=""' >> .config
+          echo 'CONFIG_TARGET_PROFILE="DEVICE_netgear_ex7300"' >> .config
+          #echo "CONFIG_TARGET_DEVICE_ath79_generic_DEVICE_netgear_ex7300-v2=y" >> .config
+          #echo 'CONFIG_TARGET_DEVICE_PACKAGES_ath79_generic_DEVICE_netgear_ex7300-v2=""' >> .config
           echo "CONFIG_TARGET_PER_DEVICE_ROOTFS=y\n" >> .config
           echo "CONFIG_TARGET_ROOTFS_INITRAMFS=y\n" >> .config
           echo "CONFIG_TARGET_INITRAMFS_COMPRESSION_ZSTD=y\n" >> .config
-          echo "CONFIG_PACKAGE_kmod-qca-nss-dp=y\n" >> .config
-          # TEST
-          echo "CONFIG_PACKAGE_qca-ssdk-shell=y" >> .config
-          
+          echo "CONFIG_PACKAGE_luci=y\n" >> .config
           
           # wpad full
           echo "CONFIG_PACKAGE_curl=y" >> .config
@@ -69,44 +69,28 @@ jobs:
           echo "CONFIG_PACKAGE_wpad-basic-wolfssl=n" >> .config
           echo "CONFIG_PACKAGE_wpad-wolfssl=y" >> .config
           
-           # services and tools
-          echo "CONFIG_PACKAGE_wireguard=y\n" >> .config
+          # services and tools
           echo "CONFIG_PACKAGE_arp-scan=y" >> .config
           echo "CONFIG_PACKAGE_bind-host=y" >> .config
           echo "CONFIG_PACKAGE_findutils-xargs=y" >> .config
           echo "CONFIG_PACKAGE_fping=y" >> .config
-          #echo "CONFIG_PACKAGE_gawk=y" >> .config
           echo "CONFIG_PACKAGE_iputils-arping=y" >> .config
           echo "CONFIG_PACKAGE_irqbalance=y" >> .config
           echo "CONFIG_PACKAGE_iwinfo=y" >> .config
-          #echo "CONFIG_PACKAGE_less-wide=y" >> .config
-          #echo "CONFIG_PACKAGE_lldpd=y" >> .config
-          #echo "CONFIG_PACKAGE_miniupnpd=y" >> .config
-          #echo "CONFIG_PACKAGE_qos-scripts=y" >> .config
-          #echo "CONFIG_PACKAGE_sqm-scripts=y\n" >> .config
           echo "CONFIG_PACKAGE_wget=y" >> .config
           echo "CONFIG_PACKAGE_bmon=y" >> .config
           echo "CONFIG_PACKAGE_iftop=y" >> .config
-          #echo "CONFIG_PACKAGE_vnstat=y\n" >> .config
+          echo "CONFIG_PACKAGE_vnstat=y\n" >> .config
           echo "CONFIG_PACKAGE_darkstat=y\n" >> .config
           
-          
-          # Spam
-          echo "CONFIG_PACKAGE_adblock=y\n" >> .config
-          echo "CONFIG_PACKAGE_luci-app-adblock=y\n" >> .config
-          
+                   
           # luci
           echo "CONFIG_PACKAGE_luci=y" >> .config
           echo "CONFIG_PACKAGE_luci-base=y" >> .config
           echo "CONFIG_PACKAGE_luci-compat=y" >> .config
           echo "CONFIG_PACKAGE_luci-theme-bootstrap=y" >> .config          
-          #echo "CONFIG_PACKAGE_luci-app-qos=y" >> .config
-          #echo "CONFIG_PACKAGE_luci-app-sqm=y" >> .config
-          #echo "CONFIG_PACKAGE_luci-app-upnp=y" >> .config
           echo "CONFIG_PACKAGE_luci-mod-dashboard=y" >> .config
-          echo "CONFIG_PACKAGE_luci-app-wireguard=y" >> .config
-          #echo "CONFIG_PACKAGE_luci-app-vnstat=y" >> .config
-          echo "CONFIG_PACKAGE_luci-app-statistics=y" >> .config
+          echo "CONFIG_PACKAGE_luci-app-vnstat=y" >> .config
           
           
           make defconfig
@@ -132,12 +116,12 @@ jobs:
           make -j$(nproc) V=s || \
           make V=s
       - name: TAR output
-        run: tar -cvf ipq807xx-images.tar bin/targets/ipq807x/generic
+        run: tar -cvf ath79-images.tar bin/targets/ath79/generic
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: ipq807x-images
-          path: ipq807xx-images.tar
+          name: ath79-images
+          path: ath79-images.tar
   release:
     name: Upload artifacts as release
     needs: build
@@ -145,14 +129,14 @@ jobs:
 
     steps:
       - name: Download the image artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v1
         with:
-          name: ipq807x-images
+          name: ath79-images
       - name: Extract the image artifacts
-        run: tar xf ipq807xx-images.tar
+        run: tar xf ath79-images.tar
       - name: Extract version information from version.buildinfo
         run: >-
-          echo "BUILDINFO=$(cat bin/targets/ipq807x/generic/version.buildinfo)"
+          echo "BUILDINFO=$(cat bin/targets/ath79/generic/version.buildinfo)"
           >> $GITHUB_ENV
       - name: Create a release
         uses: marvinpinto/action-automatic-releases@latest
@@ -160,6 +144,6 @@ jobs:
           repo_token: '${{ secrets.GITHUB_TOKEN }}'
           prerelease: true
           title: 'Updated prebuilt images (${{ env.BUILDINFO }})'
-          automatic_release_tag: ipq807x-latest@v4.3
-          files: bin/targets/ipq807x/generic/*
+          automatic_release_tag: ath79-latest@v1.0
+          files: bin/targets/ath79/generic/*
      
