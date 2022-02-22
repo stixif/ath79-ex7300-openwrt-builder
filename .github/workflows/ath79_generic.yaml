@@ -69,6 +69,10 @@ jobs:
           echo "CONFIG_PACKAGE_wpad-basic-wolfssl=n" >> .config
           echo "CONFIG_PACKAGE_wpad-wolfssl=y" >> .config
           
+          # wlan test
+          echo "CONFIG_PACKAGE_dawn=y\n" >> .config
+          echo "CONFIG_PACKAGE_luci-app-dawn=y\n" >> .config
+          
           # services and tools
           echo "CONFIG_PACKAGE_arp-scan=y" >> .config
           echo "CONFIG_PACKAGE_bind-host=y" >> .config
