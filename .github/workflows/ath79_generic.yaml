@@ -116,7 +116,7 @@ jobs:
           make -j$(nproc) V=s || \
           make V=s
       - name: TAR output
-        run: tar -cvf ath79-images.tar bin/targets/ath79/generic
+        run: tar -cvf ath79-imagesx.tar bin/targets/ath79/generic
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
