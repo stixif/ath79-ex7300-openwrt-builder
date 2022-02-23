@@ -53,15 +53,21 @@ jobs:
           echo "CONFIG_TARGET_ath79_generic=y" >> .config
           #echo "CONFIG_TARGET_MULTI_PROFILE=y\n" >> .config
           #echo "CONFIG_TARGET_ALL_PROFILES=y\n" >> .config
-          echo "CONFIG_TARGET_DEVICE_ath79_generic_DEVICE_netgear_ex7300=y" >> .config
+          #echo "CONFIG_TARGET_DEVICE_ath79_generic_DEVICE_netgear_ex7300=y" >> .config
           echo 'CONFIG_TARGET_DEVICE_PACKAGES_ath79_generic_DEVICE_netgear_ex7300=""' >> .config
           echo 'CONFIG_TARGET_PROFILE="DEVICE_netgear_ex7300"' >> .config
           #echo "CONFIG_TARGET_DEVICE_ath79_generic_DEVICE_netgear_ex7300-v2=y" >> .config
           #echo 'CONFIG_TARGET_DEVICE_PACKAGES_ath79_generic_DEVICE_netgear_ex7300-v2=""' >> .config
-          echo "CONFIG_TARGET_PER_DEVICE_ROOTFS=y\n" >> .config
-          echo "CONFIG_TARGET_ROOTFS_INITRAMFS=y\n" >> .config
+          echo "CONFIG_TARGET_PER_DEVICE_ROOTFS=y" >> .config
           echo "CONFIG_TARGET_INITRAMFS_COMPRESSION_ZSTD=y\n" >> .config
-          echo "CONFIG_PACKAGE_luci=y\n" >> .config
+          echo "CONFIG_ALL_KMODS=y" >> .config
+          echo "CONFIG_ALL_NONSHARED=y" >> .config
+          echo "CONFIG_DEVEL=y" >> .config
+          echo "CONFIG_BPF_TOOLCHAIN_BUILD_LLVM=y" >> .config
+          echo "CONFIG_SDK=y" >> .config
+          echo "CONFIG_SDK_LLVM_BPF=y" >> .config
+          echo "CONFIG_USE_LLVM_BUILD=y" >> .config
+          
           
           # wpad full
           echo "CONFIG_PACKAGE_curl=y" >> .config
