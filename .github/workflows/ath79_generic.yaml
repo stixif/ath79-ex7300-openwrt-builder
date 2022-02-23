@@ -122,7 +122,7 @@ jobs:
       - name: TAR output
         run: tar -cvf ath79x-images.tar bin/targets/ath79/generic
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: ath79-images
           path: ath79x-images.tar
@@ -133,7 +133,7 @@ jobs:
 
     steps:
       - name: Download the image artifacts
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: ath79-images
       - name: Extract the image artifacts
