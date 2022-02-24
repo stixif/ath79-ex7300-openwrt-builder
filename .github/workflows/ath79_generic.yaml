@@ -53,13 +53,13 @@ jobs:
           echo "CONFIG_TARGET_ath79_generic=y" >> .config
           #echo "CONFIG_TARGET_MULTI_PROFILE=y\n" >> .config
           #echo "CONFIG_TARGET_ALL_PROFILES=y\n" >> .config
-          #echo "CONFIG_TARGET_DEVICE_ath79_generic_DEVICE_netgear_ex7300=y" >> .config
+          echo 'CONFIG_TARGET_DEVICE_ath79_generic_DEVICE_netgear_ex7300=y' >> .config
           echo 'CONFIG_TARGET_DEVICE_PACKAGES_ath79_generic_DEVICE_netgear_ex7300=""' >> .config
           echo 'CONFIG_TARGET_PROFILE="DEVICE_netgear_ex7300"' >> .config
           #echo "CONFIG_TARGET_DEVICE_ath79_generic_DEVICE_netgear_ex7300-v2=y" >> .config
           #echo 'CONFIG_TARGET_DEVICE_PACKAGES_ath79_generic_DEVICE_netgear_ex7300-v2=""' >> .config
           echo "CONFIG_TARGET_PER_DEVICE_ROOTFS=y" >> .config
-          echo "CONFIG_TARGET_INITRAMFS_COMPRESSION_ZSTD=y\n" >> .config
+          echo "CONFIG_TARGET_INITRAMFS_COMPRESSION_ZSTD=y" >> .config
           echo "CONFIG_ALL_KMODS=y" >> .config
           echo "CONFIG_ALL_NONSHARED=y" >> .config
           echo "CONFIG_DEVEL=y" >> .config
@@ -67,7 +67,26 @@ jobs:
           echo "CONFIG_SDK=y" >> .config
           echo "CONFIG_SDK_LLVM_BPF=y" >> .config
           echo "CONFIG_USE_LLVM_BUILD=y" >> .config
-          
+          echo "CONFIG_AUTOREMOVE=y" >> .config
+          echo "CONFIG_IB=y" >> .config
+          echo "CONFIG_IMAGEOPT=y" >> .config
+		  
+		  
+          echo "CONFIG_PACKAGE_cgi-io=y" >> .config
+          echo "CONFIG_PACKAGE_libiwinfo-lua=y" >> .config
+          echo "CONFIG_PACKAGE_liblua=y" >> .config
+          echo "CONFIG_PACKAGE_liblucihttp=y" >> .config
+          echo "CONFIG_PACKAGE_liblucihttp-lua=y" >> .config
+          echo "CONFIG_PACKAGE_libubus-lua=y" >> .config
+          echo "CONFIG_PACKAGE_lua=y" >> .config
+          echo "CONFIG_PACKAGE_px5g-wolfssl=y" >> .config
+          echo "CONFIG_PACKAGE_rpcd=y" >> .config
+          echo "CONFIG_PACKAGE_rpcd-mod-file=y" >> .config
+          echo "CONFIG_PACKAGE_rpcd-mod-iwinfo=y" >> .config
+          echo "CONFIG_PACKAGE_rpcd-mod-luci=y" >> .config
+          echo "CONFIG_PACKAGE_rpcd-mod-rrdns=y" >> .config
+          echo "CONFIG_PACKAGE_uhttpd=y" >> .config
+          echo "CONFIG_PACKAGE_uhttpd-mod-ubus=y" >> .config    
           
           # wpad full
           echo "CONFIG_PACKAGE_curl=y" >> .config
@@ -101,6 +120,20 @@ jobs:
           echo "CONFIG_PACKAGE_luci-theme-bootstrap=y" >> .config          
           echo "CONFIG_PACKAGE_luci-mod-dashboard=y" >> .config
           echo "CONFIG_PACKAGE_luci-app-vnstat=y" >> .config
+
+          echo "CONFIG_PACKAGE_luci-app-firewall=y" >> .config
+          echo "CONFIG_PACKAGE_luci-app-opkg=y" >> .config
+          echo "CONFIG_PACKAGE_luci-lib-base=y" >> .config
+          echo "CONFIG_PACKAGE_luci-lib-ip=y" >> .config
+          echo "CONFIG_PACKAGE_luci-lib-jsonc=y" >> .config
+          echo "CONFIG_PACKAGE_luci-lib-nixio=y" >> .config
+          echo "CONFIG_PACKAGE_luci-mod-admin-full=y" >> .config
+          echo "CONFIG_PACKAGE_luci-mod-network=y" >> .config
+          echo "CONFIG_PACKAGE_luci-mod-status=y" >> .config
+          echo "CONFIG_PACKAGE_luci-mod-system=y" >> .config
+          echo "CONFIG_PACKAGE_luci-proto-ipv6=y" >> .config
+          echo "CONFIG_PACKAGE_luci-proto-ppp=y" >> .config
+          echo "CONFIG_PACKAGE_luci-ssl=y" >> .config
           
           
           make defconfig
