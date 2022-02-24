@@ -70,8 +70,7 @@ jobs:
           echo "CONFIG_AUTOREMOVE=y" >> .config
           echo "CONFIG_IB=y" >> .config
           echo "CONFIG_IMAGEOPT=y" >> .config
-		  
-		  
+          
           echo "CONFIG_PACKAGE_cgi-io=y" >> .config
           echo "CONFIG_PACKAGE_libiwinfo-lua=y" >> .config
           echo "CONFIG_PACKAGE_liblua=y" >> .config
