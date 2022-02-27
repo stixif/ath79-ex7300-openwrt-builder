@@ -84,8 +84,8 @@ jobs:
           echo "CONFIG_PACKAGE_wpad-basic-wolfssl=n" >> .config
           echo "CONFIG_PACKAGE_wpad-wolfssl=y" >> .config
           # services and tools
-          echo "CONFIG_PACKAGE_curl=y" >> .config
-          echo "CONFIG_PACKAGE_wget=y" >> .config
+          #echo "CONFIG_PACKAGE_curl=y" >> .config
+          #echo "CONFIG_PACKAGE_wget=y" >> .config
           #echo "CONFIG_PACKAGE_arp-scan=y" >> .config
           #echo "CONFIG_PACKAGE_bind-host=y" >> .config
           #echo "CONFIG_PACKAGE_ca-certificates=y" >> .config
@@ -127,7 +127,7 @@ jobs:
           #echo "CONFIG_PACKAGE_luci-proto-ppp=y" >> .config		  
           #echo "CONFIG_PACKAGE_luci-theme-bootstrap=y" >> .config  
           # Sonstiges
-          echo "CONFIG_PACKAGE_luci-compat=y" >> .config
+          #echo "CONFIG_PACKAGE_luci-compat=y" >> .config
           #echo "CONFIG_PACKAGE_luci-app-nft-qos=y/n" >> .config
           echo "CONFIG_PACKAGE_luci-ssl=y" >> .config
           #echo "CONFIG_PACKAGE_luci-app-ddns=y" >> .config
