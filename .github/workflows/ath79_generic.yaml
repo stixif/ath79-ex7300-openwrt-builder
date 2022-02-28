@@ -55,7 +55,7 @@ jobs:
           #echo "CONFIG_TARGET_ALL_PROFILES=y\n" >> .config
           echo 'CONFIG_TARGET_PROFILE="DEVICE_netgear_ex7300"' >> .config
           echo 'CONFIG_TARGET_DEVICE_ath79_generic_DEVICE_netgear_ex7300=y' >> .config
-          echo 'CONFIG_TARGET_DEVICE_PACKAGES_ath79_generic_DEVICE_netgear_ex7300=""' >> .config
+          #echo 'CONFIG_TARGET_DEVICE_PACKAGES_ath79_generic_DEVICE_netgear_ex7300=""' >> .config
           #echo "CONFIG_TARGET_DEVICE_ath79_generic_DEVICE_netgear_ex7300-v2=y" >> .config
           #echo 'CONFIG_TARGET_DEVICE_PACKAGES_ath79_generic_DEVICE_netgear_ex7300-v2=""' >> .config
           echo "CONFIG_TARGET_PER_DEVICE_ROOTFS=y" >> .config
