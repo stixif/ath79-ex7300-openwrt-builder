@@ -1,4 +1,4 @@
-name: ath79_new Build remote repo only if new commits were pushed
+name: ath79_new no-DAWN Build remote repo only if new commits were pushed
 on:
   workflow_dispatch:
   push:
