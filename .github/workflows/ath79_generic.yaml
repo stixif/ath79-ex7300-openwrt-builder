@@ -1,4 +1,4 @@
-name: ath79 Build remote repo only if new commits were pushed
+name: ath79 no-DAWN Build remote repo only if new commits were pushed
 on:
   workflow_dispatch:
   push:
@@ -146,8 +146,8 @@ jobs:
           #echo "CONFIG_PACKAGE_adblock=y\n" >> .config
           #echo "CONFIG_PACKAGE_luci-app-adblock=y\n" >> .config
           # wlan test
-          echo "CONFIG_PACKAGE_dawn=y\n" >> .config
-          echo "CONFIG_PACKAGE_luci-app-dawn=y\n" >> .config
+          #echo "CONFIG_PACKAGE_dawn=y\n" >> .config
+          #echo "CONFIG_PACKAGE_luci-app-dawn=y\n" >> .config
           
           
           make defconfig
